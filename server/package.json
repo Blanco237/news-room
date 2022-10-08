@@ -1,0 +1,28 @@
+{
+  "name": "news-room-server",
+  "version": "1.0.0",
+  "description": "Backend Server For News-room website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blanco237/news-room.git"
+  },
+  "keywords": [
+    "News",
+    "puppeteer",
+    "scraping",
+    "web-crawler"
+  ],
+  "author": "Blanco237",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Blanco237/news-room/issues"
+  },
+  "homepage": "https://github.com/Blanco237/news-room#readme",
+  "dependencies": {
+    "puppeteer": "^18.2.0"
+  }
+}
