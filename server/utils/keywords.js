@@ -16,4 +16,11 @@ const keywordExtractor = (text) => {
     return uniqueResult;
 }
 
-module.exports = keywordExtractor;
+const insertKeywords = (object) => {
+    const keywords = keywordExtractor(object.title);
+    object.keywords = keywords;
+
+    return object;
+}
+
+module.exports = insertKeywords;
