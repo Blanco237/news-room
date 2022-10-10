@@ -1,4 +1,4 @@
-const keywordExtractor = require("./utils/keywords");
+const insertKeywords = require("./utils/keywords");
 
 const MOST_READ_SELECTOR = "div.nw-c-most-read__items.gel-layout.gel-layout--no-flex > ol li a";
 const FULL_STORY_SELECTOR = ".nw-c-full-story .gel-wrap .gel-layout.gel-layout--no-flex .gel-layout__item";
@@ -15,7 +15,7 @@ const getBBCMostRead = async (page) => {
 }
 
 const getBBCFullStory = async (page) => {
-    const fullStories = await page.$$eval(FULL_STORY_SELECTOR, (lists) => {
+    let fullStories = await page.$$eval(FULL_STORY_SELECTOR, (lists) => {
         return lists.map((item) => {
             const imgElem = item.querySelector('.gs-c-promo-image .gs-o-media-island .gs-o-responsive-image img');
             let img = imgElem.src;
@@ -24,18 +24,19 @@ const getBBCFullStory = async (page) => {
                 img = datasrc.replace("{width}", "573");
             }
             const title = item.querySelector('.gs-c-promo-body .gs-c-promo-heading').textContent;
-            const keywords = keywordExtractor(title);
             const link = item.querySelector('.gs-c-promo-body .gs-c-promo-heading').href;
 
-            return { img, title, link, keywords };
+            return { img, title, link };
         })
     })
+
+    fullStories = fullStories.map(insertKeywords);
 
     return fullStories;
 }
 
 const getBBCRandom = async (page) => {
-    const randomStories = await page.$$eval(RANDOM_SELECTOR, (lists) => {
+    let randomStories = await page.$$eval(RANDOM_SELECTOR, (lists) => {
         return lists.map((item) => {
             const imgElem = item.querySelector('.gs-c-promo-image .gs-o-media-island .gs-o-responsive-image img');
             let img = imgElem.src;
@@ -44,18 +45,19 @@ const getBBCRandom = async (page) => {
                 img = datasrc.replace("{width}", "573");
             }
             const title = item.querySelector('.gs-c-promo-body .gs-c-promo-heading').textContent;
-            const keywords = keywordExtractor(title)
             const link = item.querySelector('.gs-c-promo-body .gs-c-promo-heading').href;
 
-            return { img, title, link, keywords };
+            return { img, title, link };
         })
     })
+
+    randomStories = randomStories.map(insertKeywords);
 
     return randomStories;
 }
 
 const getBBCSport = async (page) => {
-    const randomStories = await page.$$eval(SPORT_SELECTOR, (lists) => {
+    let sportStories = await page.$$eval(SPORT_SELECTOR, (lists) => {
         return lists.map((item) => {
             const imgElem = item.querySelector('.gs-c-promo-image .gs-o-media-island .gs-o-responsive-image img');
             let img = imgElem.src;
@@ -64,21 +66,26 @@ const getBBCSport = async (page) => {
                 img = datasrc.replace("{width}", "573");
             }
             const title = item.querySelector('.gs-c-promo-body .gs-c-promo-heading').textContent;
-            const keywords = keywordExtractor(title);
             const link = item.querySelector('.gs-c-promo-body .gs-c-promo-heading').href;
 
-            return link.includes('/live/')? null : { img, title, link, keywords };
+            return link.includes('/live/')? null : { img, title, link };
         }).filter((item) => item);
     })
 
-    return randomStories;
+    sportStories = sportStories.map(insertKeywords);
+
+    return sportStories;
 }
 
 
 
 const getFromBBC = async (browser) => {
     const page = await browser.newPage();
-    page.setDefaultNavigationTimeout(0);
+    await page.setDefaultNavigationTimeout(0);
+    await page.setViewport({
+        width: 1024,
+        height: 768
+    })
     await page.goto("https://www.bbc.com/news");
 
     const mostRead = await getBBCMostRead(page);

@@ -1,4 +1,4 @@
-const keywordExtractor = require("./utils/keywords");
+const insertKeywords = require("./utils/keywords");
 
 const SPORT_SELECTOR = ".container__field-links.container_lead-plus-headlines__field-links .container__item";
 const RANDOM_SELECTOR = ".zn__containers .column.zn__column--idx-1 .cn.cn-list-hierarchical-small-horizontal.cn--idx-1 li .cd__wrapper";
@@ -10,25 +10,25 @@ const AFICA_SELECTOR = ".column li .cd.cd--card .cd__wrapper";
 const getCNNSport = async (page) => {
     await page.goto("https://edition.cnn.com/sport");
 
-    const sports = page.$$eval(SPORT_SELECTOR, (list) => {
+    let sports = page.$$eval(SPORT_SELECTOR, (list) => {
         return list.map((item) => {
             const link = item.querySelector('a').href;
             const title = item.querySelector('a .container__text .container__headline').textContent.trim();
-            const keywords = keywordExtractor(title);
             return { title, link };
         })
     })
+
+    sports = sports.map(insertKeywords);
 
     return sports;
 }
 
 const getCNNRandom = async (page) => {
 
-    const randomStories = page.$$eval(RANDOM_SELECTOR, (list) => {
+    let randomStories = page.$$eval(RANDOM_SELECTOR, (list) => {
         return list.map((item) => {
             const link = item.querySelector('.media a').href;
             const title = item.querySelector('.cd__content .cd__headline').textContent.trim();
-            const keywords = keywordExtractor(title);
             const imgElem = item.querySelector('.media img.media__image');
             if (!imgElem) {
                 return null
@@ -38,9 +38,11 @@ const getCNNRandom = async (page) => {
             if (datasrc) {
                 img = 'https:' + datasrc;
             }
-            return { title, link, img, keywords }
+            return { title, link, img }
         }).filter(data => data);
     })
+
+    randomStories = randomStories.map(insertKeywords);
 
     return randomStories;
 }
@@ -53,7 +55,6 @@ const getCNNTech = async (page) => {
         return list.map((item) => {
             const link = item.querySelector('a').href;
             const title = item.querySelector('.container__text .container__headline').textContent.trim();
-            const keywords = keywordExtractor(title);
             const imgElem = item.querySelector('.container__item-media-wrapper .image__container .image__picture img');
             if (!imgElem) {
                 return null
@@ -63,7 +64,7 @@ const getCNNTech = async (page) => {
             if (datasrc) {
                 img = 'https:' + datasrc;
             }
-            return { title, link, img, keywords }
+            return { title, link, img }
         }).filter(data => data);
     })
 
@@ -82,7 +83,6 @@ const getCNNAfrica = async (page) => {
                 return null;
             }
             const title = item.querySelector('.cd__content .cd__headline').textContent.trim();
-            const keywords = keywordExtractor(title);
             const imgElem = item.querySelector('.media img.media__image');
             if (!imgElem) {
                 return null
@@ -92,7 +92,7 @@ const getCNNAfrica = async (page) => {
             if (datasrc) {
                 img = 'https:' + datasrc;
             }
-            return { title, link, img, keywords }
+            return { title, link, img }
         }).filter(data => data);
     })
 
