@@ -33,12 +33,12 @@ const getCNNRandom = async (page) => {
             const link = item.querySelector('.media a').href;
             const title = item.querySelector('.cd__content .cd__headline').textContent.trim();
             const imgElem = item.querySelector('.media img.media__image');
-            if(!imgElem) {
+            if (!imgElem) {
                 return null
             }
             let img = imgElem.src;
             const datasrc = imgElem.dataset.srcMedium;
-            if(datasrc){
+            if (datasrc) {
                 img = 'https:' + datasrc;
             }
             return { title, link, img }
@@ -49,17 +49,20 @@ const getCNNRandom = async (page) => {
 }
 
 const getCNNTech = async (page) => {
-    const tech = page.$$eval('.zn__containers .column.zn__column--idx-8 .cn.cn-list-hierarchical-xs.cn--idx-8 li .cd__wrapper', (list) => {
+
+    await page.goto("https://edition.cnn.com/business/tech");
+
+    const tech = page.$$eval('.container.container_lead-plus-headlines-with-images .container__field-links .container__item', (list) => {
         return list.map((item) => {
-            const link = item.querySelector('.media a').href;
-            const title = item.querySelector('.cd__content .cd__headline').textContent.trim();
-            const imgElem = item.querySelector('.media img.media__image');
-            if(!imgElem) {
+            const link = item.querySelector('a').href;
+            const title = item.querySelector('.container__text .container__headline').textContent.trim();
+            const imgElem = item.querySelector('.container__item-media-wrapper .image__container .image__picture img');
+            if (!imgElem) {
                 return null
             }
             let img = imgElem.src;
             const datasrc = imgElem.dataset.srcMedium;
-            if(datasrc){
+            if (datasrc) {
                 img = 'https:' + datasrc;
             }
             return { title, link, img }
@@ -80,14 +83,14 @@ const getFromCNN = async (browser) => {
 
     await page.goto("https://edition.cnn.com");
 
-    const randomStories = await getCNNRandom(page);
-    const techStories = await getCNNTech(page);
+    // const randomStories = await getCNNRandom(page);
+    // const techStories = await getCNNTech(page);  //Tech Page Redirects as Well
     // const sports = await getCNNSport(page);  //Sports Must Be last since they go to a different page
 
     // console.log("CNN Sport");
     // console.log(sports);
-    console.log("CNN Random");
-    console.log(randomStories);
+    // console.log("CNN Random");
+    // console.log(randomStories);
     console.log("CNN Tech");
     console.log(techStories);
 }
