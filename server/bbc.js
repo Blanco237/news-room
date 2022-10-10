@@ -1,3 +1,5 @@
+const keywordExtractor = require("./utils/keywords");
+
 const MOST_READ_SELECTOR = "div.nw-c-most-read__items.gel-layout.gel-layout--no-flex > ol li a";
 const FULL_STORY_SELECTOR = ".nw-c-full-story .gel-wrap .gel-layout.gel-layout--no-flex .gel-layout__item";
 const RANDOM_SELECTOR = ".nw-c-around-the-bbc .gel-wrap .gel-layout.gel-layout--no-flex .gel-layout__item";
@@ -22,9 +24,10 @@ const getBBCFullStory = async (page) => {
                 img = datasrc.replace("{width}", "573");
             }
             const title = item.querySelector('.gs-c-promo-body .gs-c-promo-heading').textContent;
+            const keywords = keywordExtractor(title);
             const link = item.querySelector('.gs-c-promo-body .gs-c-promo-heading').href;
 
-            return { img, title, link };
+            return { img, title, link, keywords };
         })
     })
 
@@ -41,9 +44,10 @@ const getBBCRandom = async (page) => {
                 img = datasrc.replace("{width}", "573");
             }
             const title = item.querySelector('.gs-c-promo-body .gs-c-promo-heading').textContent;
+            const keywords = keywordExtractor(title)
             const link = item.querySelector('.gs-c-promo-body .gs-c-promo-heading').href;
 
-            return { img, title, link };
+            return { img, title, link, keywords };
         })
     })
 
@@ -60,9 +64,10 @@ const getBBCSport = async (page) => {
                 img = datasrc.replace("{width}", "573");
             }
             const title = item.querySelector('.gs-c-promo-body .gs-c-promo-heading').textContent;
+            const keywords = keywordExtractor(title);
             const link = item.querySelector('.gs-c-promo-body .gs-c-promo-heading').href;
 
-            return link.includes('/live/')? null : { img, title, link };
+            return link.includes('/live/')? null : { img, title, link, keywords };
         }).filter((item) => item);
     })
 
@@ -76,19 +81,12 @@ const getFromBBC = async (browser) => {
     page.setDefaultNavigationTimeout(0);
     await page.goto("https://www.bbc.com/news");
 
-    // const mostRead = await getBBCMostRead(page);
-    // const fullStories = await getBBCFullStory(page);
-    // const randomStories = await getBBCRandom(page);
+    const mostRead = await getBBCMostRead(page);
+    const fullStories = await getBBCFullStory(page);
+    const randomStories = await getBBCRandom(page);
     const sportStories  = await getBBCSport(page);
 
-    // console.log('Most Read');
-    // console.log(mostRead);
-    // console.log('Full Stories');
-    // console.log(fullStories);
-    // console.log("Random Stories");
-    // console.log(randomStories);
-    console.log("Filtered Sports Stories");
-    console.log(sportStories);
+    return { mostRead, fullStories, randomStories, sportStories }
 }
 
 module.exports =  getFromBBC;

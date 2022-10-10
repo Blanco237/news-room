@@ -1,3 +1,5 @@
+const keywordExtractor = require("./utils/keywords");
+
 const SPORT_SELECTOR = ".container__field-links.container_lead-plus-headlines__field-links .container__item";
 const RANDOM_SELECTOR = ".zn__containers .column.zn__column--idx-1 .cn.cn-list-hierarchical-small-horizontal.cn--idx-1 li .cd__wrapper";
 const TECH_SELECTOR = ".container.container_lead-plus-headlines-with-images .container__field-links .container__item";
@@ -12,7 +14,7 @@ const getCNNSport = async (page) => {
         return list.map((item) => {
             const link = item.querySelector('a').href;
             const title = item.querySelector('a .container__text .container__headline').textContent.trim();
-
+            const keywords = keywordExtractor(title);
             return { title, link };
         })
     })
@@ -26,6 +28,7 @@ const getCNNRandom = async (page) => {
         return list.map((item) => {
             const link = item.querySelector('.media a').href;
             const title = item.querySelector('.cd__content .cd__headline').textContent.trim();
+            const keywords = keywordExtractor(title);
             const imgElem = item.querySelector('.media img.media__image');
             if (!imgElem) {
                 return null
@@ -35,7 +38,7 @@ const getCNNRandom = async (page) => {
             if (datasrc) {
                 img = 'https:' + datasrc;
             }
-            return { title, link, img }
+            return { title, link, img, keywords }
         }).filter(data => data);
     })
 
@@ -50,6 +53,7 @@ const getCNNTech = async (page) => {
         return list.map((item) => {
             const link = item.querySelector('a').href;
             const title = item.querySelector('.container__text .container__headline').textContent.trim();
+            const keywords = keywordExtractor(title);
             const imgElem = item.querySelector('.container__item-media-wrapper .image__container .image__picture img');
             if (!imgElem) {
                 return null
@@ -59,7 +63,7 @@ const getCNNTech = async (page) => {
             if (datasrc) {
                 img = 'https:' + datasrc;
             }
-            return { title, link, img }
+            return { title, link, img, keywords }
         }).filter(data => data);
     })
 
@@ -78,6 +82,7 @@ const getCNNAfrica = async (page) => {
                 return null;
             }
             const title = item.querySelector('.cd__content .cd__headline').textContent.trim();
+            const keywords = keywordExtractor(title);
             const imgElem = item.querySelector('.media img.media__image');
             if (!imgElem) {
                 return null
@@ -87,7 +92,7 @@ const getCNNAfrica = async (page) => {
             if (datasrc) {
                 img = 'https:' + datasrc;
             }
-            return { title, link, img }
+            return { title, link, img, keywords }
         }).filter(data => data);
     })
 
@@ -103,18 +108,14 @@ const getFromCNN = async (browser) => {
         height: 768
     })
 
-    // await page.goto("https://edition.cnn.com");
+    await page.goto("https://edition.cnn.com");
 
-    // const randomStories = await getCNNRandom(page);
-    // const techStories = await getCNNTech(page);  //Tech Page Redirects as Well
-    // const sports = await getCNNSport(page);  //Sports Must Be last since they go to a different page
+    const randomStories = await getCNNRandom(page);
+    const techStories = await getCNNTech(page);  //Tech Page Redirects as Well
+    const sports = await getCNNSport(page);  //Sports Must Be last since they go to a different page
     const africa = await getCNNAfrica(page); //Africa has a new page
 
-    // console.log("CNN Sport");
-    // console.log(sports);
-    // console.log("CNN Random");
-    // console.log(randomStories);
-    // console.log("CNN Tech");
-    // console.log(techStories);
-    console.log(africa);
+    return { randomStories, techStories, sportStories: sports, africanStories: africa }
 }
+
+module.exports = getFromCNN ;
