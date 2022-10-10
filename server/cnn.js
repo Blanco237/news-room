@@ -10,7 +10,7 @@ const AFICA_SELECTOR = ".column li .cd.cd--card .cd__wrapper";
 const getCNNSport = async (page) => {
     await page.goto("https://edition.cnn.com/sport");
 
-    let sports = page.$$eval(SPORT_SELECTOR, (list) => {
+    let sports = await page.$$eval(SPORT_SELECTOR, (list) => {
         return list.map((item) => {
             const link = item.querySelector('a').href;
             const title = item.querySelector('a .container__text .container__headline').textContent.trim();
@@ -25,7 +25,7 @@ const getCNNSport = async (page) => {
 
 const getCNNRandom = async (page) => {
 
-    let randomStories = page.$$eval(RANDOM_SELECTOR, (list) => {
+    let randomStories = await page.$$eval(RANDOM_SELECTOR, (list) => {
         return list.map((item) => {
             const link = item.querySelector('.media a').href;
             const title = item.querySelector('.cd__content .cd__headline').textContent.trim();
@@ -51,7 +51,7 @@ const getCNNTech = async (page) => {
 
     await page.goto("https://edition.cnn.com/business/tech");
 
-    const tech = page.$$eval(TECH_SELECTOR, (list) => {
+    const tech = await page.$$eval(TECH_SELECTOR, (list) => {
         return list.map((item) => {
             const link = item.querySelector('a').href;
             const title = item.querySelector('.container__text .container__headline').textContent.trim();
@@ -75,7 +75,7 @@ const getCNNAfrica = async (page) => {
 
     await page.goto("https://edition.cnn.com/africa");
 
-    const africa = page.$$eval(AFICA_SELECTOR, (list) => {
+    const africa = await page.$$eval(AFICA_SELECTOR, (list) => {
         return list.map((item) => {
             const link = item.querySelector('.media a')?.href;
             if(!link || link.includes('/videos/')){
