@@ -9,9 +9,3 @@ const puppeteer = require('puppeteer');
 
     }
 )();
-
-
-
-const getFromAljazeera = async (browser) => {
-    
-}

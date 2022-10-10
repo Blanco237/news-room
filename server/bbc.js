@@ -1,5 +1,11 @@
+const MOST_READ_SELECTOR = "div.nw-c-most-read__items.gel-layout.gel-layout--no-flex > ol li a";
+const FULL_STORY_SELECTOR = ".nw-c-full-story .gel-wrap .gel-layout.gel-layout--no-flex .gel-layout__item";
+const RANDOM_SELECTOR = ".nw-c-around-the-bbc .gel-wrap .gel-layout.gel-layout--no-flex .gel-layout__item";
+const SPORT_SELECTOR = ".nw-c-sport .gel-wrap .gel-layout.gel-layout--no-flex .gel-layout__item";
+
+
 const getBBCMostRead = async (page) => {
-    const mostRead = await page.$$eval("div.nw-c-most-read__items.gel-layout.gel-layout--no-flex > ol li a", (lists) => {
+    const mostRead = await page.$$eval(MOST_READ_SELECTOR, (lists) => {
         return lists.map((item) => { return { 'title': item.textContent, 'link': item.href } });
     });
 
@@ -7,7 +13,7 @@ const getBBCMostRead = async (page) => {
 }
 
 const getBBCFullStory = async (page) => {
-    const fullStories = await page.$$eval(".nw-c-full-story .gel-wrap .gel-layout.gel-layout--no-flex .gel-layout__item", (lists) => {
+    const fullStories = await page.$$eval(FULL_STORY_SELECTOR, (lists) => {
         return lists.map((item) => {
             const imgElem = item.querySelector('.gs-c-promo-image .gs-o-media-island .gs-o-responsive-image img');
             let img = imgElem.src;
@@ -26,7 +32,7 @@ const getBBCFullStory = async (page) => {
 }
 
 const getBBCRandom = async (page) => {
-    const randomStories = await page.$$eval(".nw-c-around-the-bbc .gel-wrap .gel-layout.gel-layout--no-flex .gel-layout__item", (lists) => {
+    const randomStories = await page.$$eval(RANDOM_SELECTOR, (lists) => {
         return lists.map((item) => {
             const imgElem = item.querySelector('.gs-c-promo-image .gs-o-media-island .gs-o-responsive-image img');
             let img = imgElem.src;
@@ -45,7 +51,7 @@ const getBBCRandom = async (page) => {
 }
 
 const getBBCSport = async (page) => {
-    const randomStories = await page.$$eval(".nw-c-sport .gel-wrap .gel-layout.gel-layout--no-flex .gel-layout__item", (lists) => {
+    const randomStories = await page.$$eval(SPORT_SELECTOR, (lists) => {
         return lists.map((item) => {
             const imgElem = item.querySelector('.gs-c-promo-image .gs-o-media-island .gs-o-responsive-image img');
             let img = imgElem.src;
