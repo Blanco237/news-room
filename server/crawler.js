@@ -72,6 +72,34 @@ const getCNNTech = async (page) => {
     return tech;
 }
 
+const getCNNAfrica = async (page) => {
+
+    await page.goto("https://edition.cnn.com/africa");
+
+    const africa = page.$$eval('.column li .cd.cd--card .cd__wrapper', (list) => {
+        return list.map((item) => {
+            const link = item.querySelector('.media a')?.href;
+            if(!link || link.includes('/videos/')){
+                //The '.media' wrapper does not exist (text only stories) or links to a video
+                return null;
+            }
+            const title = item.querySelector('.cd__content .cd__headline').textContent.trim();
+            const imgElem = item.querySelector('.media img.media__image');
+            if (!imgElem) {
+                return null
+            }
+            let img = imgElem.src;
+            const datasrc = imgElem.dataset.srcMedium;
+            if (datasrc) {
+                img = 'https:' + datasrc;
+            }
+            return { title, link, img }
+        }).filter(data => data);
+    })
+
+    return africa;
+}
+
 
 const getFromCNN = async (browser) => {
     const page = await browser.newPage();
@@ -81,16 +109,18 @@ const getFromCNN = async (browser) => {
         height: 768
     })
 
-    await page.goto("https://edition.cnn.com");
+    // await page.goto("https://edition.cnn.com");
 
     // const randomStories = await getCNNRandom(page);
     // const techStories = await getCNNTech(page);  //Tech Page Redirects as Well
     // const sports = await getCNNSport(page);  //Sports Must Be last since they go to a different page
+    const africa = await getCNNAfrica(page); //Africa has a new page
 
     // console.log("CNN Sport");
     // console.log(sports);
     // console.log("CNN Random");
     // console.log(randomStories);
-    console.log("CNN Tech");
-    console.log(techStories);
+    // console.log("CNN Tech");
+    // console.log(techStories);
+    console.log(africa);
 }
