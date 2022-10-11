@@ -1,20 +1,17 @@
 import React from "react";
+import { FaRegEnvelope } from 'react-icons/fa'
 
-import { FaTwitter, FaEnvelope, FaGithub, FaRegEnvelope, FaFacebookF } from "react-icons/fa";
 import logo from "../../../assets/logo.png";
+
+import IconList from "../IconList";
+
 
 const Header = () => {
   return (
     <header className="w-full shadow">
-      <nav className="w-full flex justify-between items-center px-16 py-4">
-        <section className="flex items-center gap-2">
-          {[<FaFacebookF />, <FaTwitter />, <FaEnvelope />, <FaGithub />].map(
-            (item, i) => (
-              <span key={i} className="cursor-pointer w-7 h-7 grid place-items-center border border-primary rounded-full text-sm text-blue-400 hover:bg-secondary transition-colors" role={"button"}>{item}</span>
-            )
-          )}
-        </section>
-        <div className="w-1/12">
+      <nav className="w-full flex justify-between items-center md:px-16 px-4 py-4">
+        <IconList />
+        <div className="md:w-1/12 w-2/12">
           <img src={logo} alt="News Hubs" className="w-11/12"/>
         </div>
         <div>
