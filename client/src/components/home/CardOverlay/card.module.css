@@ -1,0 +1,10 @@
+.body>div {
+    background-image: linear-gradient(to top, #111111, transparent);
+    padding-top: 1.5rem;
+    transition: all 300ms ease;
+}
+
+.body:hover > div {
+    padding-top: 3rem;
+    background-image: linear-gradient(to top, #000000, transparent);
+}
