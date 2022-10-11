@@ -9,6 +9,9 @@ module.exports = {
         "secondary" : "#d4f4f0",
         "gray" : "#f5f5f5",
         "dark" : "#111111"
+      },
+      spacing : {
+        "main" : "2vw"
       }
     },
   },
