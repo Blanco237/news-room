@@ -22,7 +22,7 @@ const Main = () => {
     }
 
   return (
-    <section className={`grid grid-cols-3 grid-rows-2 gap-8 pb-5 ${styles.main}`}>
+    <section className={`grid md:grid-cols-3 md:grid-rows-2 grid-cols-1 md:gap-8 gap-4 px-main pb-5 ${styles.main}`}>
         <CardPartialTitle {...cardData} />
         <CardOverlay {...cardData2} />
         <CardOverlay {...cardData2} />
