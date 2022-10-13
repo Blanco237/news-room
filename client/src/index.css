@@ -9,6 +9,10 @@
   @apply text-inherit hover:text-primary transition-all cursor-pointer duration-500
 }
 
+.heading {
+  @apply font-bold text-3xl text-dark uppercase
+}
+
 body {
   margin: 0;
   font-family: 'DM Sans', 'Oxygen', sans-serif;

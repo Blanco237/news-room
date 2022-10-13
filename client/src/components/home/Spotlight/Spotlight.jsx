@@ -19,7 +19,7 @@ const Spotlight = () => {
 
   return (
     <section className='flex flex-col px-main py-4'>
-        <h1 className='font-bold text-3xl text-dark'>IN THE SPOTLIGHT</h1>
+        <h1 className='heading'>IN THE SPOTLIGHT</h1>
         <section className='flex flex-col md:flex-row gap-4 justify-center items-center py-4 '>
         {
             [...Array(5)].map((_,i) => {
