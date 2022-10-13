@@ -6,7 +6,7 @@ import IconList from "../IconList";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col justify-center items-center shadow">
+    <footer className="flex flex-col justify-center items-center border-t-2 border-primary">
       <section className=" w-full flex justify-between items-start px-6 py-8 gap-6 md:flex-row flex-col">
         <section className="md:w-2/12 w-full flex flex-col gap-5">
           <div className="w-7/12">
