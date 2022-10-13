@@ -8,7 +8,6 @@ function App() {
     <div>
       <Header />
       <Home />
-      <div className='w-full h-screen bg-blue-300' ></div>
       <Footer />
     </div>
   );
