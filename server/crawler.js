@@ -1,20 +1,19 @@
 const puppeteer = require('puppeteer');
 const getFromBBC = require('./bbc');
-const getFromCNN = require('./cnn');
+const getFromCNN = require('./cnn');''
 
 
-(
-    async () => {
+const crawler = async () => {
+
         const browser = await puppeteer.launch({ headless: false });
 
         const BBC = await getFromBBC(browser);
+
         const CNN = await getFromCNN(browser);
 
-        console.log("BBC");
-        console.log(BBC.sportStories);
-        console.log("CNN");
-        console.log(CNN.sportStories);
+        await browser.close();
 
-        // console.log(BBC.sportStories);
-    }
-)();
+        return { BBC, CNN };
+}
+
+module.exports = crawler;

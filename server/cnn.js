@@ -14,7 +14,7 @@ const getCNNSport = async (page) => {
         return list.map((item) => {
             const link = item.querySelector('a').href;
             const title = item.querySelector('a .container__text .container__headline').textContent.trim();
-            return { title, link };
+            return { title, link, source: "CNN" };
         })
     })
 
@@ -38,7 +38,7 @@ const getCNNRandom = async (page) => {
             if (datasrc) {
                 img = 'https:' + datasrc;
             }
-            return { title, link, img }
+            return { title, link, img, source: "CNN" }
         }).filter(data => data);
     })
 
