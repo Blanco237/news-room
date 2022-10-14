@@ -1,8 +1,8 @@
 
 module.exports = (sequelize, DataTypes) => {
     
-    const Story = sequelize.define("Story", {
-        sid: {
+    const Story = sequelize.define("Sport", {
+        spid: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
@@ -19,13 +19,13 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true
         },
-        type: {
+        source: {
             type: DataTypes.STRING, 
             allowNull: false
         }
     },
     {
-        tableName: "Story",
+        tableName: "Sport",
         timestamps: true, 
         paranoid: true
     }
