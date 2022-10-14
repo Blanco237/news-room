@@ -1,7 +1,7 @@
 
 module.exports = (sequelize, DataTypes) => {
     
-    const Story = sequelize.define("Sport", {
+    const Sport = sequelize.define("Sport", {
         spid: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -31,5 +31,5 @@ module.exports = (sequelize, DataTypes) => {
     }
     )
 
-    return Story;
+    return Sport;
 }

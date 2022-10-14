@@ -1,7 +1,7 @@
 
 module.exports = (sequelize, DataTypes) => {
     
-    const Story = sequelize.define("Sport", {
+    const MostRead = sequelize.define("MostRead", {
         mrid: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
         },
     },
     {
-        tableName: "Sport",
+        tableName: "MostRead",
         timestamps: true, 
         paranoid: true
     }
     )
 
-    return Story;
+    return MostRead;
 }

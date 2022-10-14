@@ -1,7 +1,7 @@
 
 module.exports = (sequelize, DataTypes) => {
     
-    const Story = sequelize.define("Full", {
+    const Full = sequelize.define("Full", {
         fid: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -27,5 +27,5 @@ module.exports = (sequelize, DataTypes) => {
     }
     )
 
-    return Story;
+    return Full;
 }
