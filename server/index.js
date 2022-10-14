@@ -13,6 +13,24 @@ const db = require('./models');
 const crawler = require("./crawler");
 const saveData = require("./saveData");
 
+/*Router Imports */
+const africaRouter = require('./routes/Africa');
+const latestRouter = require('./routes/LatestNews');
+const mainRouter = require('./routes/Main');
+const sportRouter = require('./routes/Sport');
+const spotlightRouter = require('./routes/Spotlight');
+const techRouter = require('./routes/Tech');
+const topstoriesRouter = require('./routes/TopStories');
+
+/** Routing setup **/
+app.use('/africa', africaRouter);
+app.use('/latest', latestRouter);
+app.use('/main', mainRouter);
+app.use('/sport', sportRouter);
+app.use('/spotlight', spotlightRouter);
+app.use('/tech', techRouter);
+app.use('/top-stories', topstoriesRouter);
+
 
 const port = process.env.PORT || 5500;
 
