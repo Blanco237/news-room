@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
     
     const Story = sequelize.define("Africa", {
-        spid: {
+        aid: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
