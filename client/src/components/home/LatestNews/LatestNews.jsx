@@ -1,4 +1,7 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getData } from "./../../../api/api";
+import Loader from "../../shared/Loader/Loader";
 
 const NewsItem = ({ title, link }) => {
   return (
@@ -11,19 +14,27 @@ const NewsItem = ({ title, link }) => {
 };
 
 const LatestNews = () => {
+  const { data, isLoading } = useQuery(["latest-news"], () =>
+    getData("/latest")
+  );
+
   return (
     <aside className="bg-secondary h-50 md:w-3/12 w-full flex flex-col gap-6 p-4">
       <h2 className="font-medium text-2xl text-dark">Latest News</h2>
-      <div className="flex flex-col gap-4">
-        {[...Array(8)].map((_, i) => {
-          return (
-            <NewsItem
-              key={i}
-              title={`‘Don’t be a table-hogger’: Debrett’s issues guide for working from a cafe`}
-            />
-          );
-        })}
-      </div>
+      {isLoading ? (
+        <Loader height={`h-[30vh]`} />
+      ) : (
+        <div className="flex flex-col gap-4">
+          {data.slice(0, 15).map((story) => {
+            return (
+              <NewsItem
+                key={story.mrid}
+                {...story}
+              />
+            );
+          })}
+        </div>
+      )}
     </aside>
   );
 };
