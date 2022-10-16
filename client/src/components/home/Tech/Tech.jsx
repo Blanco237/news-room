@@ -17,7 +17,9 @@ const Tech = () => {
       ) : (
         <div className="grid md:grid-cols-4 grid-cols-2 gap-4 w-full py-4">
           {data.map((story) => {
-            return <CardFullTitle {...story} key={story.tid} width={`w-full`} />;
+            return (
+              <CardFullTitle {...story} key={story.tid} width={`w-full`} />
+            );
           })}
         </div>
       )}
