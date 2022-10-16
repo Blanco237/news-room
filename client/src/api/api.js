@@ -13,3 +13,13 @@ export const getMain = async () => {
         console.error(`Error:: ${e.message}`);
     }
 }
+
+export const getSpotlight = async () => {
+    try{
+        const res = await Axios.get('/spotlight');
+        return res.data;
+    }
+    catch(e) {
+        console.error(`Error:: ${e.message}`);
+    }
+}
