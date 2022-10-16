@@ -1,7 +1,9 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getData } from "./../../../api/api";
+
 import Loader from "../../shared/Loader/Loader";
+
+import { getData } from "./../../../api/api";
 
 const NewsItem = ({ title, link }) => {
   return (
