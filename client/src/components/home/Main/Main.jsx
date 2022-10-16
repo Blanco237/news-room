@@ -1,36 +1,16 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import styles from "./main.module.css";
 
 import CardPartialTitle from "../CardPartialTitle/CardPartialTitle";
-
-import image from "../testImage.jpg";
-import story from "../story.jpg";
-
 import CardOverlay from "../CardOverlay/CardOverlay";
 import Loader from "../../shared/Loader/Loader";
-import { useQuery } from "@tanstack/react-query";
-import { getMain } from "../../../api/api";
-import { useEffect } from "react";
+
+import { getData } from './../../../api/api';
 
 const Main = () => {
-  const { data, isLoading } = useQuery(["main"], getMain);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  const cardData = {
-    title:
-      "‘Don’t be a table-hogger’: Debrett’s issues guide for working from a cafe",
-    img: image,
-  };
-
-  const cardData2 = {
-    title:
-      "Time for us to start clocking off early with our own healthy habits",
-    img: story,
-  };
+  const { data, isLoading } = useQuery(["main"], () => getData('/main'));
 
   return isLoading ? (
     <Loader height={`h-[70vh]`} />

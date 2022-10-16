@@ -5,17 +5,12 @@ import image from "../testImage.jpg";
 import story from "../story.jpg";
 import Loader from "../../shared/Loader/Loader";
 import { useQuery } from '@tanstack/react-query';
-import { getSpotlight } from "../../../api/api";
 
-import { useEffect } from 'react';
+import { getData } from './../../../api/api';
 
 const Spotlight = () => {
 
-  const { data, isLoading } = useQuery(["spotlight"], getSpotlight)
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  const { data, isLoading } = useQuery(["spotlight"], () => getData('/spotlight'))
 
   const cardData = {
     title:
