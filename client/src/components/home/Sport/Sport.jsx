@@ -1,12 +1,11 @@
 import React from "react";
-import CardOverlay from "../CardOverlay/CardOverlay";
+import { useQuery } from "@tanstack/react-query";
 
+import CardOverlay from "../CardOverlay/CardOverlay";
+import Loader from "../../shared/Loader/Loader";
 import { FaCaretRight } from "react-icons/fa";
 
-import sport from "./sport.jpg";
-import { useQuery } from "@tanstack/react-query";
 import { getData } from "./../../../api/api";
-import Loader from "../../shared/Loader/Loader";
 
 const Sport = () => {
   const { data, isLoading } = useQuery(["sport-cards"], () =>
@@ -42,7 +41,7 @@ const Sport = () => {
         <Loader height={`h-[40vh]`} />
       ) : (
         <div className="md:w-7/12  w-full">
-          {data.map((story) => {
+          {textData.slice(0, 10).map((story) => {
             return (
               <SportItem
               key={story.spid}
