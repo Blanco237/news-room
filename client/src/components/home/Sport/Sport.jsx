@@ -6,6 +6,7 @@ import Loader from "../../shared/Loader/Loader";
 import { FaCaretRight } from "react-icons/fa";
 
 import { getData } from "./../../../api/api";
+import { Link } from 'react-router-dom';
 
 const Sport = () => {
   const { data, isLoading } = useQuery(["sport-cards"], () =>
@@ -17,11 +18,13 @@ const Sport = () => {
     () => getData("/sport/text")
   );
 
-  const SportItem = ({ title }) => {
+  const SportItem = ({ title, spid }) => {
     return (
-      <div className="border-b pl-4 text-left link font-normal md:text-lg text-base w-full py-3 flex items-center gap-4">
-        <FaCaretRight /> <p>{title}</p>
-      </div>
+      <Link to={`/story/${spid}`}>
+        <div className="border-b pl-4 text-left link font-normal md:text-lg text-base w-full py-3 flex items-center gap-4">
+          <FaCaretRight /> <p>{title}</p>
+        </div>
+      </Link>
     );
   };
 
@@ -33,7 +36,14 @@ const Sport = () => {
       ) : (
         <div className="grid md:grid-cols-3 grid-cols-2 gap-4 w-full py-4">
           {data.map((story) => {
-            return <CardOverlay {...story} key={story.spid} width={`w-full`} />;
+            return (
+              <CardOverlay
+                {...story}
+                key={story.spid}
+                id={story.spid}
+                width={`w-full`}
+              />
+            );
           })}
         </div>
       )}
@@ -42,12 +52,7 @@ const Sport = () => {
       ) : (
         <div className="md:w-7/12  w-full">
           {textData.slice(0, 10).map((story) => {
-            return (
-              <SportItem
-              key={story.spid}
-                {...story}
-              />
-            );
+            return <SportItem key={story.spid} {...story} />;
           })}
         </div>
       )}

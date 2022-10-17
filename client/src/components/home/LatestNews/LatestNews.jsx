@@ -4,14 +4,17 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "../../shared/Loader/Loader";
 
 import { getData } from "./../../../api/api";
+import { Link } from "react-router-dom";
 
-const NewsItem = ({ title, link }) => {
+const NewsItem = ({ title, mrid }) => {
   return (
+    <Link to={`/story/${mrid}`}>
     <div className="relative border-l border-blue-400 text-left pl-3 py-2">
       <h3 className="link">{title}</h3>
       <span className="w-3 aspect-square bg-blue-400 absolute top-[42%] left-[-0.37rem] rounded-full animate-ping"></span>
       <span className="w-2 aspect-square bg-blue-400 absolute top-[45%] left-[-0.25rem] rounded-full"></span>
     </div>
+    </Link>
   );
 };
 

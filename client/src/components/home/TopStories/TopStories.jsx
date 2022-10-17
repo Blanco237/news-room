@@ -22,7 +22,7 @@ const TopStories = () => {
           <section className="md:w-9/12 w-full py-4 grid md:grid-cols-4 grid-cols-2 gap-4 ">
             {data.map((story) => {
               return(
-                <CardFullTitle {...story} key={story.rid} width={`w-full`} />
+                <CardFullTitle {...story} key={story.rid} id={story.rid} width={`w-full`} />
               )
             })}
           </section>

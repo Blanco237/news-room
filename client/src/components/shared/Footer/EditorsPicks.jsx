@@ -21,7 +21,7 @@ const EditorsPicks = () => {
       ) : (
         <div className="grid grid-cols-2 gap-2">
           {data.slice(0, 4).map((story) => {
-            return <CardOverlay {...story} key={story.sid} width={`w-full`} />;
+            return <CardOverlay {...story} key={story.fid} id={story.fid} width={`w-full`} />;
           })}
         </div>
       )}

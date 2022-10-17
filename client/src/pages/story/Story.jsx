@@ -7,8 +7,11 @@ const Story = () => {
   const { id   } = useParams();
 
   useEffect(() => {
-    console.log(id);
-  }, [id])
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }, [])
 
   return (
     <div className='py-5 bg-pink-500 h-screen grid place-content-center'>
