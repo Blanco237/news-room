@@ -21,6 +21,7 @@ const sportRouter = require('./routes/Sport');
 const spotlightRouter = require('./routes/Spotlight');
 const techRouter = require('./routes/Tech');
 const topstoriesRouter = require('./routes/TopStories');
+const archiveRouter = require('./routes/Archives');
 
 /** Routing setup **/
 app.use('/africa', africaRouter);
@@ -30,6 +31,8 @@ app.use('/sport', sportRouter);
 app.use('/spotlight', spotlightRouter);
 app.use('/tech', techRouter);
 app.use('/top-stories', topstoriesRouter);
+app.use('/archive', archiveRouter);
+
 
 
 const port = process.env.PORT || 5500;
@@ -41,10 +44,10 @@ db.sequelize.sync().then(async () => {
 
     try {
         // Starting the Crawler and getting data
-        const crawlData = await crawler();
+        // const crawlData = await crawler();
 
         //Saving to Database
-        await saveData(crawlData);
+        // await saveData(crawlData);
         
     } catch (e) {
         console.log(`Error:: ${e.message}`);
