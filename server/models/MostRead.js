@@ -9,12 +9,16 @@ module.exports = (sequelize, DataTypes) => {
         }, 
         title: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         link: {
             type: DataTypes.STRING,
             allowNull: true
         },
+        createdAt: {
+            type: DataTypes.DATEONLY
+        }
     },
     {
         tableName: "MostRead",

@@ -2,14 +2,15 @@
 module.exports = (sequelize, DataTypes) => {
     
     const Tech = sequelize.define("Tech", {
-        spid: {
+        tid: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         }, 
         title: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         img: {
             type: DataTypes.STRING,
@@ -19,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true
         },
+        createdAt: {
+            type: DataTypes.DATEONLY
+        }
     },
     {
         tableName: "Tech",

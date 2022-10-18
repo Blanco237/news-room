@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         }, 
         title: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         img: {
             type: DataTypes.STRING,
@@ -22,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
         source: {
             type: DataTypes.STRING, 
             allowNull: false
+        },
+        createdAt: {
+            type: DataTypes.DATEONLY
         }
     },
     {

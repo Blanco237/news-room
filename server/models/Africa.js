@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         }, 
         title: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         img: {
             type: DataTypes.STRING,
@@ -19,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true
         },
+        createdAt: {
+            type: DataTypes.DATEONLY
+        }
     },
     {
         tableName: "Africa",
