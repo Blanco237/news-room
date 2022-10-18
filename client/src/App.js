@@ -13,14 +13,14 @@ function App() {
 
   return (
     <QueryClientProvider client={client}>
-      <Header />
       <Router>
+        <Header />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/story/:id' element={<Story />} />
         </Routes>
+        <Footer />
       </Router>
-      <Footer />
     </QueryClientProvider>
   );
 }
