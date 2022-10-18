@@ -1,18 +1,23 @@
 
 const { Africa, Full, MostRead, Random, Sport, Tech } = require("./models");
+const filterduplicates = require("./utils/filterduplicates");
 
 const saveData = async ({ BBC, CNN }) => {
     try {
-        await Random.bulkCreate([...BBC.randomStories, ...CNN.randomStories]) 
-        await Full.bulkCreate(BBC.fullStories);
-        await MostRead.bulkCreate(BBC.mostRead);
-        await Sport.bulkCreate([...BBC.sportStories, ...CNN.sportStories]);
-        await Tech.bulkCreate(CNN.techStories);
-        await Africa.bulkCreate(CNN.africanStories);
+        try{
+            await MostRead.bulkCreate(filterduplicates(BBC.mostRead));
+        }catch(e) {
+            console.error(e);
+        }
+        await Random.bulkCreate(filterduplicates([...BBC.randomStories, ...CNN.randomStories])) 
+        await Full.bulkCreate(filterduplicates(BBC.fullStories));
+        await Sport.bulkCreate(filterduplicates([...BBC.sportStories, ...CNN.sportStories]));
+        await Tech.bulkCreate(filterduplicates(CNN.techStories));
+        await Africa.bulkCreate(filterduplicates(CNN.africanStories));
         console.log(`All data saved`);
     }
     catch(e) {
-        console.log(`Error:: ${e.message}`);
+        console.error(`Error:: ${e.message}`);
     }
 }
 
