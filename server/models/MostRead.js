@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
         title: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
         },
         link: {
             type: DataTypes.STRING,
