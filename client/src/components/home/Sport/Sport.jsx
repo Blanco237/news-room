@@ -20,7 +20,7 @@ const Sport = () => {
 
   const SportItem = ({ title, spid }) => {
     return (
-      <Link to={`/story/${spid}`}>
+      <Link to={`/story/${spid}?table=sport`}>
         <div className="border-b pl-4 text-left link font-normal md:text-lg text-base w-full py-3 flex items-center gap-4">
           <FaCaretRight /> <p>{title}</p>
         </div>
@@ -42,6 +42,7 @@ const Sport = () => {
                 key={story.spid}
                 id={story.spid}
                 width={`w-full`}
+                table="sport"
               />
             );
           })}

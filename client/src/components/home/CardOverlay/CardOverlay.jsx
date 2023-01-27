@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import styles from "./card.module.css";
 
-const CardOverlay = ({ id, img, title, width, check }) => {
+const CardOverlay = ({ id, img, title, width, check, table }) => {
   return (
-    <Link to={`/story/${id}`}>
+    <Link to={`/story/${id}?table=${table}`}>
       <div className={`relative ${styles.body} cursor-pointer ${width}`}>
         <img
           src={img}

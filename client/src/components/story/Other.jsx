@@ -12,7 +12,7 @@ const Other = ({ id }) => {
   );
 
   useEffect(() => {
-    if(!isLoading){
+    if(data.length !== 0){
         refetch();
     }
   }, [id])
@@ -31,6 +31,7 @@ const Other = ({ id }) => {
                 key={story.rid}
                 id={story.rid}
                 width={`w-full`}
+                table="random"
               />
             );
           })}

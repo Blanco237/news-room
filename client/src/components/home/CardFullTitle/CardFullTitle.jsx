@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CardFullTitle = ({ id, img, title, width }) => {
+const CardFullTitle = ({ id, img, title, width, table }) => {
   return (
     <div className={`${width} overflow-hidden cursor-pointer shadow`}>
-      <Link to={`/story/${id}`}>
+      <Link to={`/story/${id}?table=${table}`}>
         <img
           src={img}
           alt="News Story"

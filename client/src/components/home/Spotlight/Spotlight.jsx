@@ -17,7 +17,7 @@ const Spotlight = () => {
         isLoading? <Loader height={`h-[40vh]`}/> :  <section className="flex flex-col md:flex-row gap-4 justify-center items-center py-4 ">
         {data.map((story) => {
           return (
-            <CardFullTitle {...story} key={story.fid} id={story.fid} width={`md:w-1/5 w-full`} />
+            <CardFullTitle {...story} key={story.fid} id={story.fid} width={`md:w-1/5 w-full`} table="full" />
           )
         })}
       </section>
