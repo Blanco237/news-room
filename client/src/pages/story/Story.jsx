@@ -2,22 +2,37 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react';
 import Other from '../../components/story/Other';
+import { useQuery } from '@tanstack/react-query';
+import { getData } from '../../api/api';
+import Loader from '../../components/shared/Loader/Loader';
 
 const Story = () => {
 
   const { id } = useParams();
+  const table = new URLSearchParams(window.location.search).get("table");
+
+  const { data, isLoading, refetch } = useQuery(["story"], () => getData(`/story/${table}/${id}`));
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     })
-  }, [])
+  }, [id]);
+
+  useEffect(() => {
+    refetch();
+  }, [id])
+
+  console.log(data);
 
   return (
     <div className='py-5 min-h-screen flex gap-8 px-main flex-col md:flex-row'>
         <div className='w-full md:w-9/12'>
-          <iframe src='https://www.bbc.com/travel/article/20230126-the-return-of-the-spirit-horse-to-canada' title='Story title Here' className='w-full min-h-screen'/>
+          {
+            isLoading ? <Loader height={`h-full`} /> : 
+            <iframe src={`${data.link}?output=embed`} title={data.title} className='w-full min-h-screen md:h-full'/>
+          }
         </div>
         <Other id={id}/>
     </div>

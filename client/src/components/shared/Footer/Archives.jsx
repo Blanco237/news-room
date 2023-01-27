@@ -5,14 +5,17 @@ import { getData } from "./../../../api/api";
 import { useEffect } from "react";
 import Loader from "../Loader/Loader";
 import getArchiveDate from '../../../utils/monthtostring';
+import { useState } from "react";
 
 const Archives = () => {
-  const { data, isLoading } = useQuery(["archives"], () => getData("/archive"));
+  const { data: _data, isLoading } = useQuery(["archives"], () => getData("/archive"));
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    console.log(data);
-    console.log("From Archives");
-  }, [data]);
+    if(!_data) return;
+    const temp_data = _data.map((date) => getArchiveDate(date.dates));
+    setData(Array.from(new Set(temp_data)));
+  }, [_data]);
 
   return (
     <section className="md:w-3/12 w-full flex flex-col gap-2">
@@ -24,19 +27,11 @@ const Archives = () => {
           <div>
             {
                 data.map((date) => {
-                    const  d = getArchiveDate(date.dates);
-                    console.log(date);
-                    return <p className="link" key={date.dates}>{d}</p>
+                    return <p className="link" key={date}>{date}</p>
                 })
             }
           </div>
           <div>
-            <p>May 2020</p>
-            <p>May 2020</p>
-            <p>May 2020</p>
-            <p>May 2020</p>
-            <p>May 2020</p>
-            <p>May 2020</p>
           </div>
         </div>
       )}
