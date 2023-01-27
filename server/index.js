@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const cron = require('node-cron');
 
 
 const app = express();
@@ -22,6 +23,7 @@ const spotlightRouter = require('./routes/Spotlight');
 const techRouter = require('./routes/Tech');
 const topstoriesRouter = require('./routes/TopStories');
 const archiveRouter = require('./routes/Archives');
+const storyRouter = require('./routes/Story');
 
 /** Routing setup **/
 app.use('/africa', africaRouter);
@@ -32,6 +34,7 @@ app.use('/spotlight', spotlightRouter);
 app.use('/tech', techRouter);
 app.use('/top-stories', topstoriesRouter);
 app.use('/archive', archiveRouter);
+app.use('/story', storyRouter);
 
 
 
@@ -42,15 +45,18 @@ db.sequelize.sync().then(async () => {
         console.log(`Server is running on ${port}`);
     })
 
-    try {
-        // Starting the Crawler and getting data
-        const crawlData = await crawler();
-
-        //Saving to Database
-        await saveData(crawlData);
-        
-    } catch (e) {
-        console.error(`Error:: ${e.message}`);
-    }
+    cron.schedule('0 9 * * *', async () => {
+        //Will run everyday at 9am
+        try {
+            // Starting the Crawler and getting data
+            const crawlData = await crawler();
+    
+            //Saving to Database
+            await saveData(crawlData);
+            
+        } catch (e) {
+            console.error(`Error:: ${e.message}`);
+        }
+    })
 
 })
