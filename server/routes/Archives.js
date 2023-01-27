@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const sequelize = require("sequelize");
 
-const { Africa } = require('../models');
+const { Random } = require('../models');
 
 router.get('/', async (req, res) => {
     try {
-        const data = await Africa.findAll({
+        const data = await Random.findAll({
             attributes: [
                 // specify an array where the first element is the SQL function and the second is the alias
                 [sequelize.fn('DISTINCT', sequelize.col('createdAt')), 'dates'],

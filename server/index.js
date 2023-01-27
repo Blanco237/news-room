@@ -59,4 +59,15 @@ db.sequelize.sync().then(async () => {
         }
     })
 
+    try {
+        // Starting the Crawler and getting data
+        const crawlData = await crawler();
+
+        //Saving to Database
+        await saveData(crawlData);
+        
+    } catch (e) {
+        console.error(`Error:: ${e.message}`);
+    }
+
 })
