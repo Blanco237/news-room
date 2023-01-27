@@ -40,6 +40,10 @@ app.use('/story', storyRouter);
 
 const port = process.env.PORT || 5500;
 
+app.get('/', (req, res) => {
+    res.status(200).json({"hello" : "world"});
+})
+
 db.sequelize.sync().then(async () => {
     app.listen(port, () => {
         console.log(`Server is running on ${port}`);
@@ -58,16 +62,5 @@ db.sequelize.sync().then(async () => {
             console.error(`Error:: ${e.message}`);
         }
     })
-
-    try {
-        // Starting the Crawler and getting data
-        const crawlData = await crawler();
-
-        //Saving to Database
-        await saveData(crawlData);
-        
-    } catch (e) {
-        console.error(`Error:: ${e.message}`);
-    }
 
 })
