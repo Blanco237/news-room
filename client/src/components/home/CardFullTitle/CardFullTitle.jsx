@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const CardFullTitle = ({ id, img, title, width, table }) => {
   return (
     <div className={`${width} overflow-hidden cursor-pointer shadow`}>
-      <Link to={`/story/${id}?table=${table}`}>
+      <Link to={`/story/${id}?table=${table}`} reloadDocument>
         <img
           src={img}
           alt="News Story"

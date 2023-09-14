@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import Loader from "../shared/Loader/Loader";
@@ -7,15 +7,9 @@ import { getData } from "./../../api/api";
 
 const Other = ({ id }) => {
 
-  const { data, isLoading, refetch } = useQuery(["other-stories"], () =>
+  const { data, isLoading } = useQuery(["other-stories"], () =>
     getData("/top-stories")
   );
-
-  useEffect(() => {
-    if(data && data.length !== 0){
-        refetch();
-    }
-  }, [id])
 
   return (
     <aside className="bg-secondary h-50 md:w-3/12 w-full flex flex-col gap-3 items-center p-4">

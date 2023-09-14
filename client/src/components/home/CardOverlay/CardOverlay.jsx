@@ -5,7 +5,7 @@ import styles from "./card.module.css";
 
 const CardOverlay = ({ id, img, title, width, check, table }) => {
   return (
-    <Link to={`/story/${id}?table=${table}`}>
+    <Link to={`/story/${id}?table=${table}`} reloadDocument>
       <div className={`relative ${styles.body} cursor-pointer ${width}`}>
         <img
           src={img}

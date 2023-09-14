@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const NewsItem = ({ title, mrid }) => {
   return (
-    <Link to={`/story/${mrid}?table=mostread`}>
+    <Link to={`/story/${mrid}?table=mostread`} reloadDocument>
     <div className="relative border-l border-blue-400 text-left pl-3 py-2">
       <h3 className="link">{title}</h3>
       <span className="w-3 aspect-square bg-blue-400 absolute top-[42%] left-[-0.37rem] rounded-full animate-ping"></span>
